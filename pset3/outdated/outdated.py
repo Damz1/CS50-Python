@@ -22,7 +22,9 @@ while True:
     except:
         try:
             old_month, old_day, year = date.split(" ")
-            print(old_month, old_day, year)
+            if "," not in date:
+                continue
+
             for i in range(len(months)):
                 if old_month == months[i]:
                     month = i + 1
