@@ -2,31 +2,28 @@ import sys
 import csv
 from tabulate import tabulate
 
+# Check if the correct number of arguments is provided
 if len(sys.argv) != 2:
-    sys.exit("excpect one command line argument")
+    sys.exit("Please provide exactly one command-line argument.")
 
-file_path = sys.argv[1]
-if not file_path.endswith('.csv'):
-    sys.exit('not a csv file')
+# Get the filename from the command-line argument
+filename = sys.argv[1]
 
+# Check if the file extension is .csv
+if not filename.endswith(".csv"):
+    sys.exit("The specified file should have a .csv extension.")
 
-def main(file_path):
-    try:
-        with open(file_path, 'r') as file:
-            reader = csv.DictReader(file)
-            # convert to a list of dictionaries
-            data = list(reader)
+try:
+    # Open the CSV file
+    with open(filename, "r") as file:
+        # Read the CSV file using DictReader
+        reader = csv.DictReader(file)
+        # Convert the data to a list of dictionaries
+        data = list(reader)
 
-        convert_to_asci(data)
-
-    except FileNotFoundError:
-        sys.exit('File not found')
-
-
-def convert_to_asci(data):
+    # Print the table using tabulate
     table = tabulate(data, headers="keys", tablefmt="grid")
     print(table)
 
-
-if __name__ == "__main__":
-    main(file_path)
+except FileNotFoundError:
+    sys.exit("The specified file does not exist.")
