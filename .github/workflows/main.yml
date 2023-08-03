@@ -1,6 +1,8 @@
 on: push
 jobs:
   deploy:
+      permissions:
+      id-token: write
     runs-on: ubuntu-latest
     services:
       mysql:
